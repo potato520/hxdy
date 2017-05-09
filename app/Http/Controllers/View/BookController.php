@@ -29,7 +29,7 @@ class BookController extends Controller
         $pdt_content = PdtContent::where('product_id', '=', $product_id)->first();
         $pdt_images = PdtImages::where('product_id', '=', $product_id)->get();
 
-        // 获取购物车 cookie
+        // 获取购物车 cookie     【获取购物车中的 cookie数量】
         $bk_cart = $request->cookie('bk_cart');
         $bk_cart_arr = ($bk_cart != null ? explode(',', $bk_cart) : array());
 
