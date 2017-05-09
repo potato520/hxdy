@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50553
 File Encoding         : 65001
 
-Date: 2017-05-08 01:12:49
+Date: 2017-05-09 22:26:46
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -73,16 +73,17 @@ INSERT INTO `member` VALUES ('6', '', '18232496759', 'e10adc3949ba59abbe56e057f2
 DROP TABLE IF EXISTS `pdt_content`;
 CREATE TABLE `pdt_content` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
+  `content` text,
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
-  `content` text,
   `product_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of pdt_content
 -- ----------------------------
+INSERT INTO `pdt_content` VALUES ('1', ' laravel Ajax post方式的使用\r\n\r\n以jquery ajax 的post的方式为例\r\n\r\n验证邮箱输入格式是否正确\r\n\r\nhtml ', '2017-05-08 23:07:06', '0000-00-00 00:00:00', '1');
 
 -- ----------------------------
 -- Table structure for `pdt_images`
@@ -96,11 +97,15 @@ CREATE TABLE `pdt_images` (
   `image_no` varchar(200) NOT NULL,
   `product_id` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of pdt_images
 -- ----------------------------
+INSERT INTO `pdt_images` VALUES ('1', '2017-05-08 23:16:41', '0000-00-00 00:00:00', '/images/1.jpg', '', '1');
+INSERT INTO `pdt_images` VALUES ('2', '2017-05-08 23:17:02', '0000-00-00 00:00:00', '/images/2.jpg', '', '1');
+INSERT INTO `pdt_images` VALUES ('3', '2017-05-08 23:17:02', '0000-00-00 00:00:00', '/images/3.jpg', '', '1');
+INSERT INTO `pdt_images` VALUES ('4', '2017-05-08 23:17:03', '0000-00-00 00:00:00', '/images/4.jpg', '', '1');
 
 -- ----------------------------
 -- Table structure for `product`
@@ -116,11 +121,15 @@ CREATE TABLE `product` (
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of product
 -- ----------------------------
+INSERT INTO `product` VALUES ('1', '深入浅出Node.js', '第一本深度讲解Node的图书，源码级别探寻过Node', '10', '/images/1.jpg', '7', '2017-05-08 22:21:02', '0000-00-00 00:00:00');
+INSERT INTO `product` VALUES ('2', 'Node.js权威指南', '以实践为导向，不经每个知识点配备了精巧的操作和离子', '20', '/images/2.jpg', '7', '2017-05-08 22:21:03', '0000-00-00 00:00:00');
+INSERT INTO `product` VALUES ('3', 'React', '伸出名门，Fackbook开源巨献，一经推出瞬间改变开发局势的一个我也不知道什么的东西', '30', '/images/3.jpg', '8', '2017-05-08 22:21:06', '0000-00-00 00:00:00');
+INSERT INTO `product` VALUES ('4', 'React Native', '如果你对开发web前对的原生移动应该用感兴趣，你可以看看这本书，也不知道什么时候能用上？？？》？', '1', '/images/4.jpg', '8', '2017-05-08 22:21:10', '0000-00-00 00:00:00');
 
 -- ----------------------------
 -- Table structure for `temp_email`

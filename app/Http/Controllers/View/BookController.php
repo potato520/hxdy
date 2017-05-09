@@ -7,6 +7,7 @@ use App\Models\Category;
 use App\Models\PdtContent;
 use App\Models\PdtImages;
 use App\Models\Product;
+use Illuminate\Http\Request;
 
 class BookController extends Controller
 {
@@ -22,12 +23,26 @@ class BookController extends Controller
         return view('product', compact('products'));
     }
 
-    public function toPdtContent($product_id)
+    public function toPdtContent(Request $request, $product_id)
     {
         $product = Product::find($product_id);
         $pdt_content = PdtContent::where('product_id', '=', $product_id)->first();
         $pdt_images = PdtImages::where('product_id', '=', $product_id)->get();
-        return view('pdt_content', compact('product', 'pdt_content', 'pdt_images'));
+
+        // 获取购物车 cookie
+        $bk_cart = $request->cookie('bk_cart');
+        $bk_cart_arr = ($bk_cart != null ? explode(',', $bk_cart) : array());
+
+        $count = 0;
+        foreach ($bk_cart_arr as $value){ // &引用传值修改数组
+            $index = strpos($value, ':');
+            if(substr($value, 0, $index) == $product_id){
+                $count = (int) substr($value, $index+1);
+                break;
+            }
+        }
+
+        return view('pdt_content', compact('product', 'pdt_content', 'pdt_images', 'count'));
     }
 
 

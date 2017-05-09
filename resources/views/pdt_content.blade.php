@@ -52,7 +52,7 @@
             <button class="weui_btn weui_btn_primary" onclick="_addCart();">加入购物车</button>
         </div>
         <div class="bk_half_area">
-            <button class="weui_btn weui_btn_default" onclick="_toCart()">查看购物车(<span id="cart_num" class="m3_price">1</span>)</button>
+            <button class="weui_btn weui_btn_default" onclick="_toCart()">查看购物车(<span id="cart_num" class="m3_price">{{ $count }}</span>)</button>
         </div>
     </div>
     <!--底部浮动的购买按钮 end-->
@@ -78,5 +78,45 @@
         });
     </script>
     <!--轮播图 end-->
+
+    <script type="text/javascript">
+        function _addCart() {
+            var product_id = {{ $product->id }};
+            var url = "{{ url('service/cart/add') }}/" + product_id;
+            $.ajax({
+                type: "GET",
+                url: url,
+                dataType: 'json',
+                headers: { 'X-CSRF-TOKEN' : '{{ csrf_token() }}' },
+                cache: false,
+                success: function(data) {
+                    if(data == null) {
+                        $('.bk_toptips').show();
+                        $('.bk_toptips span').html('服务端错误');
+                        setTimeout(function() {$('.bk_toptips').hide();}, 2000);
+                        return;
+                    }
+                    if(data.status != 0) {
+                        $('.bk_toptips').show();
+                        $('.bk_toptips span').html(data.message);
+                        setTimeout(function() {$('.bk_toptips').hide();}, 2000);
+                        return;
+                    }
+
+                    // 修改购物车数量
+                    var num = $('#cart_num').html();
+                    if(num == '') num = 0;
+                    $('#cart_num').html(Number(num) + 1);
+
+
+                },
+                error: function(xhr, status, error) {
+                    console.log(xhr);
+                    console.log(status);
+                    console.log(error);
+                }
+            });
+        }
+    </script>
 
 @endsection

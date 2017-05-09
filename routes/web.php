@@ -23,7 +23,7 @@ Route::get('/login', 'View\MemberController@toLogin');
 Route::get('/register', 'View\MemberController@toRegister');
 Route::get('/category', 'View\BookController@toCategory');
 Route::get('/product/category_id/{category_id}', 'View\BookController@toProduct');
-Route::get('/product/{category_id}', 'View\BookController@toPdtContent');
+Route::get('/product/{product_id}', 'View\BookController@toPdtContent');
 
 
 // 分组 [自动带上 service 的前缀]
@@ -34,6 +34,7 @@ Route::group(['prefix' => 'service'], function (){
     Route::post('register', 'Service\MemberController@register');
     Route::post('login', 'Service\MemberController@login');
     Route::post('category/parent_id', 'Service\BookController@getCategoryByParentId');
+    Route::get('cart/add/{product_id}', 'Service\CartController@addCart');
 });
 
 
