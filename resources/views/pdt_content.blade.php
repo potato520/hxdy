@@ -40,7 +40,11 @@
     <div class="weui_cells">
         <div class="weui_cell">
             <!--解析html字符-->
+            @if($pdt_content != null)
             <p>{!!$pdt_content->content!!}</p>
+                @else
+                <p>未添加相关信息</p>
+            @endif
         </div>
     </div>
 
@@ -52,7 +56,7 @@
             <button class="weui_btn weui_btn_primary" onclick="_addCart();">加入购物车</button>
         </div>
         <div class="bk_half_area">
-            <button class="weui_btn weui_btn_default" onclick="_toCart()">查看购物车数量(<span id="cart_num" class="m3_price">{{ $count }}</span>)</button>
+            <button class="weui_btn weui_btn_default" onclick="_toCart()">结算(<span id="cart_num" class="m3_price">{{ $count }}</span>)</button>
         </div>
     </div>
     <!--底部浮动的购买按钮 end-->
@@ -116,6 +120,10 @@
                     console.log(error);
                 }
             });
+        }
+        
+        function _toCart() {
+            location.href= "{{ url('cart') }}"
         }
     </script>
 
